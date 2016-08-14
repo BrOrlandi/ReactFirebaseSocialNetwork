@@ -1,3 +1,8 @@
 {
-  
+    "FIREBASE_CONFIG": {
+      "apiKey": "AIzaSyCcmDXaT9-eqtPdaWV9HRwoXEDyFRJ3ntQ",
+      "authDomain": "socialnetworkboilerplate.firebaseapp.com",
+      "databaseURL": "https://socialnetworkboilerplate.firebaseio.com",
+      "storageBucket": "socialnetworkboilerplate.appspot.com"
+    }
 }
