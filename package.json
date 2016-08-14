@@ -21,9 +21,18 @@
   "author": "Bruno Orlandi <brorlandi@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "classnames": "^2.2.5",
+    "firebase": "^3.2.1",
+    "jquery": "^2.2.4",
+    "materialize-css": "^0.97.7",
     "node-libs-browser": "^1.0.0",
     "react": "^15.0.2",
-    "react-dom": "^15.0.2"
+    "react-autolink": "^0.2.1",
+    "react-dom": "^15.0.2",
+    "react-emoji": "^0.4.4",
+    "react-mixin": "^3.0.5",
+    "react-youtube": "^7.0.1",
+    "reactfire": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.8.0",
