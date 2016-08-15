@@ -42,6 +42,11 @@ class SocialNetwork{
     getUser(){
         return this.auth.currentUser;
     }
+
+    createFriendRequest(userId){
+        var ref =this.database.ref('/friendRequests/' + userId+ '/'+this.getUser().uid);
+        ref.set(true);
+    }
 };
 
 export default new SocialNetwork();

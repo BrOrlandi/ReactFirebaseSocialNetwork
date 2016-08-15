@@ -38,9 +38,11 @@ class AddFriendModal extends React.Component{
         this.refs.searchUser.value = '';
     }
 
-
     createFriendRequest = (userId)=>{
-        console.log(userId);
+        SocialNetwork.createFriendRequest(userId);
+
+        $(this.refs.AddFriendModal).closeModal();
+        this.closeModal();
     }
 
     render(){
