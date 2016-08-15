@@ -14,12 +14,27 @@ window.SocialNetwork = SocialNetwork;
 
 class App extends React.Component {
 
+    constructor(props){
+        super(props);
+
+        this.state = {
+            currentUser: null,
+            userCheck: false  // if user was checked
+        };
+
+        firebase.auth().onAuthStateChanged(this.onAuthStateChanged.bind(this));
+    }
+
+    onAuthStateChanged(user){
+        this.setState({currentUser: user,userCheck: true});
+    }
+
     render(){
         // pass the user to the navbar
         return (
             <div>
-                <Navbar />
-                <Chat />
+                <Navbar {...this.state}  />
+                <Chat {...this.state}  />
             </div>
         );
     }

@@ -24,7 +24,6 @@ class SocialNetwork{
         if(user == null)
             return;
 
-        console.log(user);
         var userId = user.uid;
         var ref =this.database.ref('/users/' + userId);
         ref.once('value').then((snapshot)=>{
