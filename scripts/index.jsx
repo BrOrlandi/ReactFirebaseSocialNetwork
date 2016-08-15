@@ -7,12 +7,18 @@ import React from 'react';
 import firebase from 'firebase';
 import SocialNetwork from 'SocialNetwork';
 
+import Navbar from './components/Navbar';
+import Chat from './components/Chat';
+
 
 class App extends React.Component {
+
     render(){
+        // pass the user to the navbar
         return (
             <div>
-                <h1>Hello React App!</h1>
+                <Navbar />
+                <Chat />
             </div>
         );
     }

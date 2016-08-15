@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="512" height="512">
+<style>.o{fill:#fff}</style>
+<mask id="l">
+<circle r="256" cx="256" cy="256" class="o"/>
+<circle r="189" cx="256" cy="256"/>
+<circle r="142" cx="256" cy="256" class="o"/>
+<circle r="85" cx="256" cy="256"/>
+<path d="M0 278h99v42H0zM311 192h195v42H311z"/>
+<path d="M0 227h120v51H0zm395 7h55v51h-55z" class="o"/>
+</mask>
+<circle r="250" cx="256" cy="256" mask="url(#l)" class="o"/>
+<circle r="38" cx="256" cy="256" class="o"/>
+</svg>

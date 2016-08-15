@@ -1,1 +1,351 @@
+body {
+    background-repeat: no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 
+nav .brand-logo{
+    padding: 0px 0px 0px 10px;
+    img{
+        padding-top: 8px;
+        padding-bottom: 8px;
+        max-height: 50px;
+        padding: 0 1rem 0 0;
+        vertical-align: middle;
+    }
+}
+
+img.userPic{
+    height: 64px;
+    width: 64px;
+}
+
+img.navbarPic{
+    padding: 8px 0px;
+    height: 64px;
+}
+
+/* This class contains the everything that is not the navbar */
+.chatContainer {
+    /* Position absolute is used to create a "full-height" div */
+    position: absolute;
+    top: 64px;
+    bottom: 0px;
+    width: 100%;
+
+    /* Using flex to place and align the friend list and message board */
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+
+    /* Friend list */
+    .friendList {
+        /* The friend list do not shrink neither grow on size */
+        flex: 0 0 72px;
+        overflow-y: auto;
+
+        /* Friends are shown in a columns */
+        display: flex;
+        flex-direction: column;
+
+        /* Each friend from friend list */
+        .friend {
+            padding-top: 5px;
+            height: 64px;
+            text-align: center;
+            position: relative;
+            margin-right: 3px;
+
+            /* Profile image */
+            img {
+                padding: 5px;
+                height: 64px;
+            }
+
+            &.unread{
+                /* Pseudo element that handles the unread messages badge */
+                &::after {
+                    /* the following line should be updated to: content: attr('unread'); after creating a custom component */
+                    content: attr(data-unread-messages);
+                    font-size: 10px;
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 10px;
+                    background-color: #1e88e5;
+                    color: white;
+                }
+            }
+
+
+            /* When active use this behavior */
+            .active {
+                background-color: white;
+            }
+
+            /* When offline use this behavior */
+            .offline {
+                -webkit-filter: grayscale(100%);
+                -moz-filter: grayscale(100%);
+                -o-filter: grayscale(100%);
+                -ms-filter: grayscale(100%);
+                filter: grayscale(100%);
+            }
+        }
+    }
+
+    /* This is the message board, where the messages and the form are placed */
+    .messages{
+        /* Adjusting the responsive settings */
+        flex: 1 1 900px;
+        max-width: 900px;
+
+        font-family: Tahoma, sans-serif, Arial, Helvetica;
+
+        /* Messages are show in a column but the start to fill the board from the bottom */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        /* Message board background */
+        background-color: rgba(0,0,0, .6);
+
+        /* This is the message list, where all the messages are placed */
+        .messageList{
+            padding: 10px 20px 10px 20px;
+            width: 100%;
+
+            /* Scroll for messages */
+            overflow-y: auto;
+
+
+            /* Messages are show in a column */
+            display: flex;
+            flex-direction: column;
+
+            .chatMessage{
+                padding: 5px 10px;
+                margin-top: 2px;
+                margin-top: 2px;
+
+                /* break word for long text word message */
+                word-wrap: break-word;
+                word-break: break-word;
+                max-width: 95%;
+                flex-shrink: 0;
+
+                .timestamp {
+                    font-size: 0.6em;
+                }
+
+                iframe{
+                    margin: 10px;
+                    max-width: 100% !important;
+                    @media (max-width: 1024px){
+                        max-width: 95% !important;
+                        width: auto;
+                        height: auto;
+                    }
+                }
+
+                img {
+                    &.uploaded{
+                        border-radius: 12px;
+                        max-width: 100%;
+                        max-height: 500px;
+                    }
+
+                    &.emoji{
+                        vertical-align: bottom;
+                    }
+                }
+
+                /* This is the class for the user mesages */
+                &.userMessage{
+                    border-radius: 15px 20px 5px 20px;
+                    background-color: #0277bd;
+
+                    /* User's messages appear on the right */
+                    align-self: flex-end;
+
+                    .timestamp {
+                        text-align: right;
+                    }
+
+                }
+
+                /* This is the class for other peoples mesages */
+                &.othersMessage{
+                    border-radius: 20px 15px 20px 5px;
+                    background-color: #0288d1;
+
+                    /* Other's messages appear on the left */
+                    align-self: flex-start;
+
+                    .timestamp {
+                        text-align: left;
+                    }
+
+                }
+            }
+        }
+        /* This is where the the form lies */
+        .messageForm{
+            padding: 5px 10px;
+            width: 100%;
+            background-color: white;
+            flex-shrink: 0;
+
+            input {
+                /* The input should increse the size using the available size */
+                flex: 1;
+                margin-left: 10px;
+                margin-right: 10px;
+                margin-bottom: 5px;
+
+                height: 36px;
+            }
+
+            .sendMessage {
+                padding: 0px;
+                width: 40px;
+            }
+
+            /* All its items are centralized and distributed equaly */
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+
+            /* The material "send" icon font size */
+            .md-40 {
+                color: #01579b;
+                font-size: 36px;
+            }
+        }
+    }
+}
+
+/* The imput form where the user writes its message */
+/* Important has been used to apply the color globally */
+input[type="text"] {
+    /* Here, it is possible to customize input glow color */
+    &:focus {
+        border-bottom: 1px solid #01579b !important;
+        -webkit-box-shadow: 0 1px 0 0 #01579b !important;
+        -moz-box-shadow: 0 1px 0 0 #01579b !important;
+        box-shadow: 0 1px 0 0 #01579b !important;
+    }
+}
+
+.collection.with-header .collection-item {
+    padding-left: 5px;
+    padding-right: 5px;
+    .row {
+        margin-bottom: 0px;
+    }
+    p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    /* Padding to push buttons to match layout size */
+    .height-fix{
+        padding-top: 20px;
+    }
+
+    .secondary-content {
+        /* Friend request buttons now are connected */
+        button:first-child {
+            border-radius: 2px 0 0 2px;
+        }
+        button:nth-child(2) {
+            border-radius: 0 2px 2px 0px;
+        }
+    }
+}
+
+@media (max-width: 600px){
+    .collection.with-header .collection-item {
+        text-align: center;
+        .height-fix{
+            padding-top: 0px;
+        }
+    }
+}
+
+.button-collapse {
+    width: 72px;
+    text-align: center;
+}
+
+.cursorPointer{
+    cursor: pointer;
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #01579b;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: transparentize(#01579b, 0.4);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+$lcolor: #01579b;
+$off-lcolor: rgba($lcolor, 0.2);
+$spin-duration: 1s;
+$pulse-duration: 750ms;
+
+.loading-spinner {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: .25rem solid $off-lcolor;
+    border-top-color: $lcolor;
+    animation: spin $spin-duration infinite linear;
+    margin: 20px;
+}
+
+/* Adjusting chat container as nav bar decreases */
+@media (max-width: 600px) {
+    .chatContainer{
+        top: 56px;
+    }
+}
+
+/* Fixing font size problem with buttons on smaller resolutions */
+@media (max-width: 900px){
+    button {
+        i {
+            margin-right: 0px !important;
+        }
+        font-size: 0.8em;
+    }
+}
