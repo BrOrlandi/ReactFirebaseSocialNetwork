@@ -3,6 +3,7 @@ import React from 'react';
 import logo from '../../assets/images/logo-semcomp-branco.svg';
 
 import defaultPic from '../../assets/images/profile-placeholder.png';
+import AddFriendModal from './AddFriendModal';
 
 export default class Navbar extends React.Component {
 
@@ -15,7 +16,6 @@ export default class Navbar extends React.Component {
     }
 
     componentWillReceiveProps(props){
-        console.log(props.currentUser);
         this.setState(props);
     }
 
@@ -27,8 +27,8 @@ export default class Navbar extends React.Component {
         SocialNetwork.signOut();
     }
 
-    addFriend(){
-        console.log("ADD FRIEND");
+    addFriend = ()=>{
+        this.refs.addFriendModal.openModal();
     }
 
     render(){
@@ -50,6 +50,7 @@ export default class Navbar extends React.Component {
         });
 
         return (
+            <div>
             <nav className="navbar-fixed light-blue darken-4">
                 <div className="nav-wrapper">
                     <div className="col s12">
@@ -63,6 +64,8 @@ export default class Navbar extends React.Component {
                     </div>
                 </div>
             </nav>
+            <AddFriendModal ref="addFriendModal"/>
+            </div>
         )
     }
 };
