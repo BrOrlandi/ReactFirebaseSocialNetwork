@@ -5,6 +5,8 @@ import firebase from 'firebase';
 import reactMixin from 'react-mixin';
 import ReactFireMixin from 'reactfire';
 
+import Message from './Message';
+
 class MessageList extends React.Component {
 
     constructor(props) {
@@ -24,6 +26,9 @@ class MessageList extends React.Component {
     }
 
     componentWillReceiveProps(props){
+        if(this.state.messages){
+            this.unbind("messages");
+        }
         this.setState({friend: props.friend});
         this.readMessages(props);
     }
@@ -32,7 +37,7 @@ class MessageList extends React.Component {
         console.log(this.state.messages);
         if(!!this.state.messages){
             var messages = this.state.messages.map((m)=>{
-                return <div className="chatMessage othersMessage">{m.message}</div>;
+                return <Message key={m['.key']} {...m}/>
             });
         }
         return(

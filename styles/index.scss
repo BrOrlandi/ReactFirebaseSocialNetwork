@@ -112,7 +112,7 @@ img.navbarPic{
         justify-content: flex-end;
 
         /* Message board background */
-        background-color: rgba(0,0,0, .15);
+        background-color: white;
 
         /* This is the message list, where all the messages are placed */
         .messageList{
@@ -168,6 +168,7 @@ img.navbarPic{
                 &.userMessage{
                     border-radius: 15px 20px 5px 20px;
                     background-color: #0277bd;
+                    color: white;
 
                     /* User's messages appear on the right */
                     align-self: flex-end;
@@ -181,7 +182,8 @@ img.navbarPic{
                 /* This is the class for other peoples mesages */
                 &.othersMessage{
                     border-radius: 20px 15px 20px 5px;
-                    background-color: #0288d1;
+                    background-color: #bdbdbd;
+                    color: black;
 
                     /* Other's messages appear on the left */
                     align-self: flex-start;
