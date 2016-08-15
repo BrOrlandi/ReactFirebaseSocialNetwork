@@ -5,17 +5,17 @@ import MessagesBoard from './MessagesBoard';
 
 export default class Chat extends React.Component {
 
-    // constructor(props) {
-    //     super(props)
-    //     this.state ={
-    //         friend: null
-    //     }
-    // }
+    constructor(props) {
+        super(props)
+        this.state ={
+            friend: null
+        }
+    }
 
 
-    // onSelectConversation = (friend)=>{
-    //     this.setState({ friend});
-    // }
+    onSelectConversation = (friend)=>{
+        this.setState({ friend});
+    }
 
     render(){
         if(!this.props.userCheck){
@@ -25,12 +25,10 @@ export default class Chat extends React.Component {
             return(
                 <div className="chatContainer">
                     {/* Friend List... */}
-                    {/* <FriendList /> */}
-                    {/* onSelectConversation={this.onSelectConversation} friend={this.state.friend} */}
+                    <FriendList onSelectConversation={this.onSelectConversation} />
 
                     {/* All message stuff is handled here */}
-                    <MessagesBoard  />
-                    {/* friend={this.state.friend} */}
+                    <MessagesBoard friend={this.state.friend} />
                 </div>
             );
         }else{
