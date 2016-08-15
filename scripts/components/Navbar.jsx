@@ -7,11 +7,11 @@ import defaultPic from '../../assets/images/profile-placeholder.png';
 export default class Navbar extends React.Component {
 
     signIn(){
-        console.log("SIGN IN");
+        SocialNetwork.signIn();
     }
 
     signOut(){
-        console.log("SIGN OUT");
+        SocialNetwork.signOut();
     }
 
     addFriend(){

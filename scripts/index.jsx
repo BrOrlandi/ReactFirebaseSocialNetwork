@@ -10,6 +10,7 @@ import SocialNetwork from 'SocialNetwork';
 import Navbar from './components/Navbar';
 import Chat from './components/Chat';
 
+window.SocialNetwork = SocialNetwork;
 
 class App extends React.Component {
 
