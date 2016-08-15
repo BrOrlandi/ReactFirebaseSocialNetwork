@@ -35,6 +35,9 @@ class AddFriendModal extends React.Component{
                 var ref = firebase.database().ref("/friendRequests/"+SocialNetwork.getUser().uid);
                 this.bindAsArray(ref, "friendRequests");
 
+                ref = firebase.database().ref('/friendships/'+SocialNetwork.getUser().uid);
+                this.bindAsObject(ref,"friends");
+
                 this.refs.searchUser.focus();
             },
             complete: this.closeModal
@@ -43,6 +46,7 @@ class AddFriendModal extends React.Component{
 
     closeModal = () =>{
         this.unbind("friendRequests");
+        this.unbind("friends");
 
         this.setState({userResult:null});
         this.refs.searchUser.value = '';
@@ -60,7 +64,11 @@ class AddFriendModal extends React.Component{
             var keys = Object.keys(this.state.userResult);
             var result = keys.map((key)=>{
                 var button;
-                button = <button className="waves-effect waves-light btn light-blue darken-4 col s12" onClick={this.createFriendRequest.bind(this,key)}><i className="material-icons left">add</i>Add friend</button>;
+                if(this.state.friends && this.state.friends[key]){
+                    button = <p className="col s12 center" style={{color: 'black'}}>Already friends</p>;
+                }else {
+                    button = <button className="waves-effect waves-light btn light-blue darken-4 col s12" onClick={this.createFriendRequest.bind(this,key)}><i className="material-icons left">add</i>Add friend</button>;
+                }
                 var user = this.state.userResult[key];
                 return <li className="collection-item friendRequest" key={key}><UserWithPic user={user}>{button}</UserWithPic></li>;
             });
