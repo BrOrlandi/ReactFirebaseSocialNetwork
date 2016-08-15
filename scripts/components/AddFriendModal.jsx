@@ -2,6 +2,10 @@ import React from 'react';
 import firebase from 'firebase';
 
 import UserWithPic from './UserWithPic';
+import FriendRequestList from './FriendRequestList';
+
+import reactMixin from 'react-mixin';
+import ReactFireMixin from 'reactfire';
 
 class AddFriendModal extends React.Component{
 
@@ -27,6 +31,10 @@ class AddFriendModal extends React.Component{
     openModal = () =>{
         $("#AddFriendModal").openModal({
             ready: ()=> {
+                // create listener to friendRequests
+                var ref = firebase.database().ref("/friendRequests/"+SocialNetwork.getUser().uid);
+                this.bindAsArray(ref, "friendRequests");
+
                 this.refs.searchUser.focus();
             },
             complete: this.closeModal
@@ -34,6 +42,8 @@ class AddFriendModal extends React.Component{
     }
 
     closeModal = () =>{
+        this.unbind("friendRequests");
+
         this.setState({userResult:null});
         this.refs.searchUser.value = '';
     }
@@ -59,7 +69,7 @@ class AddFriendModal extends React.Component{
         return (<div ref="AddFriendModal" id="AddFriendModal" className="modal modal-fixed-footer">
         <div className="modal-content">
           <h4>Add Friends</h4>
-          {/* <FriendRequestList list={this.state.friendRequests}/> */}
+          <FriendRequestList list={this.state.friendRequests}/>
           <form  onSubmit={this.searchUser}>
               <div className="input-field">
                   <input placeholder="Search user by e-mail..." id="searchUser" ref="searchUser" type="text" />
@@ -79,5 +89,7 @@ class AddFriendModal extends React.Component{
         );
     }
 };
+
+reactMixin(AddFriendModal.prototype, ReactFireMixin);
 
 export default AddFriendModal;

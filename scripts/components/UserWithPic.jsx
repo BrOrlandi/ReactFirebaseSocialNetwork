@@ -13,7 +13,13 @@ class UserWithPic extends React.Component {
     }
 
     componentWillMount(){
-        this.setState({user: this.props.user});
+        if(this.props.user){
+            this.setState({user: this.props.user});
+        }else{
+            firebase.database().ref('/users/'+this.props.uid).once('value',(snapshot)=>{
+                this.setState({user: snapshot.val()});
+            });
+        }
     }
 
     render(){
