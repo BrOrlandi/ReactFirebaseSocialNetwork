@@ -1,18 +1,57 @@
 import React from 'react';
+import firebase from 'firebase';
 
 
 class AddFriendModal extends React.Component{
 
-    openModal = () =>{
-        $("#AddFriendModal").openModal({
-            ready: ()=> {
-                console.log("modal open");
-            }
+    constructor(props){
+        super(props);
+
+        this.state = {
+            userResult: null
+        };
+    }
+
+    searchUser= (e)=>{
+        e.preventDefault();
+        var search = this.refs.searchUser.value;
+        //this.refs.searchUser.value = '',
+        firebase.database().ref("/users").orderByChild("email").equalTo(search)
+            .once('value',(snapshot)=>{
+            this.setState({userResult: snapshot.val()});
         });
     }
 
 
+    openModal = () =>{
+        $("#AddFriendModal").openModal({
+            ready: ()=> {
+                this.refs.searchUser.focus();
+            },
+            complete: this.closeModal
+        });
+    }
+
+    closeModal = () =>{
+        this.setState({userResult:null});
+        this.refs.searchUser.value = '';
+    }
+
+
+    createFriendRequest = (userId)=>{
+        console.log(userId);
+    }
+
     render(){
+        if(this.state.userResult){
+            var keys = Object.keys(this.state.userResult);
+            var result = keys.map((key)=>{
+                var button;
+                button = <button className="waves-effect waves-light btn light-blue darken-4 col s12" onClick={this.createFriendRequest.bind(this,key)}><i className="material-icons left">add</i>Add friend</button>;
+                var user = this.state.userResult[key];
+                return <li className="collection-item friendRequest" key={key}>{user.displayName} - {button}</li>;
+            });
+        }
 
         return (<div ref="AddFriendModal" id="AddFriendModal" className="modal modal-fixed-footer">
         <div className="modal-content">
@@ -27,11 +66,7 @@ class AddFriendModal extends React.Component{
               </div>
           </form>
           <ul className="collection with-header">
-                {/* Search user result */}
-                <li className="collection-item friendRequest">User name
-                    <button className="waves-effect waves-light btn light-blue darken-4 col s12" ><i className="material-icons left">add</i>Add friend</button>
-                </li>
-
+                {result}
           </ul>
         </div>
         <div className="modal-footer">
