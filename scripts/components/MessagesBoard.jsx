@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import MessageList from './MessageList';
+import MessageList from './MessageList';
 // import MessageForm from './MessageForm';
 
 class MessageBoard extends React.Component {
@@ -16,10 +16,10 @@ class MessageBoard extends React.Component {
         return(
             <div className="messages">
                 {/* Here goes the messages */}
-                {/* <MessageList {...this.props}/> */}
+                <MessageList {...this.props}/>
 
                 {/* Here goes the form to send messages */}
-                {/* <MessageForm {...this.props} /> */}
+                {/*<MessageForm {...this.props} />*/}
             </div>
         );
     }
