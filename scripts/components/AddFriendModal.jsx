@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from 'firebase';
 
+import UserWithPic from './UserWithPic';
 
 class AddFriendModal extends React.Component{
 
@@ -49,7 +50,7 @@ class AddFriendModal extends React.Component{
                 var button;
                 button = <button className="waves-effect waves-light btn light-blue darken-4 col s12" onClick={this.createFriendRequest.bind(this,key)}><i className="material-icons left">add</i>Add friend</button>;
                 var user = this.state.userResult[key];
-                return <li className="collection-item friendRequest" key={key}>{user.displayName} - {button}</li>;
+                return <li className="collection-item friendRequest" key={key}><UserWithPic user={user}>{button}</UserWithPic></li>;
             });
         }
 
