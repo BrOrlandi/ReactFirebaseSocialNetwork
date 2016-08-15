@@ -9,13 +9,11 @@ class FriendRequestList extends React.Component {
     }
 
     accept(uid){
-        console.log("ACCEPT: ",uid);
-        // SocialNetwork.acceptFriendRequest(uid);
+        SocialNetwork.acceptFriendRequest(uid);
     }
 
     reject(uid){
-        console.log("REJECT: ",uid);
-        // SocialNetwork.rejectFriendRequest(uid);
+        SocialNetwork.rejectFriendRequest(uid);
     }
 
     render(){
