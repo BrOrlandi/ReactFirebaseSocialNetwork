@@ -2,7 +2,7 @@ import React from 'react';
 
 import firebase from 'firebase';
 
-// import Friend from './Friend';
+import Friend from './Friend';
 
 import reactMixin from 'react-mixin';
 import ReactFireMixin from 'reactfire';
@@ -33,8 +33,7 @@ class FriendList extends React.Component {
             var friendId = f['.key'];
             var conversationId = f.conversation;
             var active = conversationId == this.state.activeConversation.conversation;
-            // return <Friend key={friendId} onClick={this.selectConversation.bind(this, f)} uid={friendId} active={active}/>
-            return <div onClick={this.selectConversation.bind(this, f)}>{friendId}</div>
+            return <Friend key={friendId} onClick={this.selectConversation.bind(this, f)} uid={friendId} active={active}/>;
         });
         return(
             <div className="friendList">
