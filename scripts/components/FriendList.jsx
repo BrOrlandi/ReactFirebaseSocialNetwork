@@ -25,6 +25,17 @@ class FriendList extends React.Component {
         if(friend['.key'] !== this.state.activeConversation['.key']){ // don't reload the same conversation
             this.setState({activeConversation: friend});
             this.props.onSelectConversation(friend);
+
+            // update url hash when new friend is selected
+            var location = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
+            if(location[0] !== friend['.key'])
+                window.history.pushState({},'','#'+friend['.key']);
+        }
+    }
+
+    componentWillReceiveProps(props){ // if receive a friend via props, select it
+        if(props.friend){
+            this.selectConversation(props.friend);
         }
     }
 

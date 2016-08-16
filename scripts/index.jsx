@@ -34,9 +34,18 @@ class App extends React.Component {
         return (
             <div>
                 <Navbar {...this.state}  />
-                <Chat {...this.state}  />
+                <Chat {...this.state} hash={this.props.hash}/>
             </div>
         );
     }
 };
-ReactDOM.render(<App/>, document.getElementById('react-body'));
+
+function handleNewHash() {
+  var location = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
+  var application = <App hash={location[0]} />; // pass the hash as parameter
+  ReactDOM.render(application, document.getElementById('react-body'));
+}
+
+// Handle the initial route and browser navigation events
+handleNewHash();
+window.addEventListener('hashchange', handleNewHash, false);
