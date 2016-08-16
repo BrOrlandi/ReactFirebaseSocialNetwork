@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MessageList from './MessageList';
-// import MessageForm from './MessageForm';
+import MessageForm from './MessageForm';
 
 class MessageBoard extends React.Component {
     render(){
@@ -19,7 +19,7 @@ class MessageBoard extends React.Component {
                 <MessageList {...this.props}/>
 
                 {/* Here goes the form to send messages */}
-                {/*<MessageForm {...this.props} />*/}
+                <MessageForm {...this.props} />
             </div>
         );
     }

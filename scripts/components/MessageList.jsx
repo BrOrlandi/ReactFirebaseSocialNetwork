@@ -34,7 +34,6 @@ class MessageList extends React.Component {
     }
 
     render(){
-        console.log(this.state.messages);
         if(!!this.state.messages){
             var messages = this.state.messages.map((m)=>{
                 return <Message key={m['.key']} {...m}/>
