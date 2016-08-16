@@ -12,6 +12,13 @@ import Chat from './components/Chat';
 
 window.SocialNetwork = SocialNetwork;
 
+$(window).focus(function() {
+    window.window_focus = true;
+})
+.blur(function() {
+    window.window_focus = false;
+});
+
 class App extends React.Component {
 
     constructor(props){

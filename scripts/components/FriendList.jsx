@@ -7,6 +7,8 @@ import Friend from './Friend';
 import reactMixin from 'react-mixin';
 import ReactFireMixin from 'reactfire';
 
+import defaultPic from '../../assets/images/profile-placeholder.png';
+
 class FriendList extends React.Component {
 
     constructor(props) {
@@ -19,6 +21,31 @@ class FriendList extends React.Component {
     componentWillMount(){
         var ref = firebase.database().ref('/friendships/'+SocialNetwork.getUser().uid).orderByChild("lastDate");
         this.bindAsArray(ref,"friends");
+
+        var checkNotification = function() {
+          if (Notification.permission === 'default') {
+            Notification.requestPermission(function() {
+              console.log('Notification request permission.');
+            });
+            }
+        };
+
+        checkNotification();
+        if(Notification.permission === 'granted'){
+            ref.on('child_changed',(snapshot)=>{
+                if(!window.window_focus){
+                    firebase.database().ref('/users/'+snapshot.key).once('value').then((snapshot)=>{
+                        var friend = snapshot.val();
+                        var notification = new Notification('Semcomp Social',{
+                            tag: snapshot.key,
+                            body: "New message from "+friend.displayName,
+                            icon: friend.photoURL ? friend.photoURL : defaultPic
+                        });
+                    });
+                }
+
+            })
+        }
     }
 
     selectConversation(friend){
