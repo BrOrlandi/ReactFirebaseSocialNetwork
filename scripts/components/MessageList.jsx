@@ -25,6 +25,15 @@ class MessageList extends React.Component {
         this.readMessages(this.state);
     }
 
+    // calback to set scrollTop when image loads
+    updateScroll = ()=>{
+        this.refs.messageList.scrollTop = this.refs.messageList.scrollHeight;
+    }
+
+    componentDidUpdate(){
+        this.updateScroll();
+    }
+
     componentWillReceiveProps(props){
         if(this.state.messages){
             this.unbind("messages");

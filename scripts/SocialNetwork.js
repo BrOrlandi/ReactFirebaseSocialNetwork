@@ -80,6 +80,23 @@ class SocialNetwork{
             }
         });
     }
+
+    sendMessage(message, friend){
+        var uid = friend['.key'];
+        var me = this.getUser().uid;
+        this.database.ref('/messages/'+friend.conversation).push({
+            from: me,
+            message: message,
+            date:firebase.database.ServerValue.TIMESTAMP
+        }).then((data)=>{
+            data.child('date').once('value',(s)=>{
+                var date = s.val();
+                this.database.ref('/friendships/'+me+'/'+uid+'/lastDate').set(-date);
+                this.database.ref('/friendships/'+uid+'/'+me+'/lastDate').set(-date);
+            });
+        });
+    }
+
 };
 
 export default new SocialNetwork();
