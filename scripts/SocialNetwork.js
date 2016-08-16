@@ -7,6 +7,7 @@ class SocialNetwork{
     constructor(){
         this.auth = firebase.auth();
         this.database = firebase.database();
+        this.storage = firebase.storage(); // for image upload
 
         this.auth.onAuthStateChanged(this.registerUser.bind(this));
     }
@@ -95,6 +96,36 @@ class SocialNetwork{
                 this.database.ref('/friendships/'+uid+'/'+me+'/lastDate').set(-date);
             });
         });
+    }
+
+    sendImage(file, friend){
+        var uid = friend['.key'];
+        var me = this.getUser().uid;
+        // push message
+        this.database.ref('/messages/'+friend.conversation).push({
+            from: me,
+            imageUrl: true,
+            date:firebase.database.ServerValue.TIMESTAMP
+        }).then((message)=>{
+            message.child('date').once('value',(s)=>{
+                var date = s.val(); // get message date
+                this.database.ref('/friendships/'+me+'/'+uid+'/lastDate').set(-date);
+                this.database.ref('/friendships/'+uid+'/'+me+'/lastDate').set(-date);
+
+                // start uploading image
+                var uploadTask = this.storage.ref(me + '/' + date + '/' + file.name)
+                    .put(file, {'contentType': file.type});
+
+                // Listen for upload completion.
+                uploadTask.on('state_changed', null, (error)=>{
+                  console.error('There was an error uploading a file to Firebase Storage:', error);
+              }, ()=>{
+                  // Get the file's Storage URI and update the chat message placeholder.
+                  var filePath = uploadTask.snapshot.metadata.fullPath;
+                  message.update({imageUrl: this.storage.ref(filePath).toString()});
+                });
+              });
+            });
     }
 
 };

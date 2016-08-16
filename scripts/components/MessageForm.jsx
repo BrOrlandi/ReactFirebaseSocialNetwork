@@ -1,5 +1,7 @@
 import React from 'react';
 
+import SendImageButton from './SendImageButton';
+
 export default class MessageForm extends React.Component {
 
     constructor(props){
@@ -37,6 +39,7 @@ export default class MessageForm extends React.Component {
                     <button className="btn-flat waves-effect waves-light sendMessage" type="submit">
                         <i className="material-icons md-40">send</i>
                     </button>
+                    <SendImageButton friend={this.state.friend}/>
                 </form>
             );
         }
