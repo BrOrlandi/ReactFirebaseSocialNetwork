@@ -1,6 +1,43 @@
 {
   "rules": {
-    ".read": "true || auth != null",
-    ".write": "true || auth != null"
+      "users":{
+          ".read": "auth != null",
+          ".indexOn": "email",
+          "$user_id":{
+              ".write": "$user_id === auth.uid"
+          }
+      },
+        "friendRequests":{
+          	"$user_id":{
+               ".read": "$user_id === auth.uid",
+               "$user_id2": {
+                 ".write": "(auth.uid == $user_id2 && newData.val() === true) || (auth.uid == $user_id && !newData.exists())"
+               }
+
+            }
+        },
+      "friendships":{
+        "$user":{
+          ".read": "$user === auth.uid",
+            "$friend":{
+              ".write":"$user === auth.uid || $friend === auth.uid"
+            }
+        }
+      },
+      "messages":{
+        "$conversation":{
+        	".write": "auth != null && (root.child('conversations/'+$conversation+'/'+auth.uid).val() === true || !data.exists())",
+        	".read" : "auth != null && (root.child('conversations/'+$conversation+'/'+auth.uid).val() === true || data.isNumber())"
+        }
+      },
+      "conversations":{
+        ".read": "false",
+        "$conversation":{
+          "$user":{
+          	".write": "root.child('messages/'+$conversation).isNumber()"
+          }
+
+        }
+      }
   }
 }
